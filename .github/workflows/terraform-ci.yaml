@@ -53,7 +53,7 @@ jobs:
       run: terraform plan -var="my_ip=${{ secrets.MY_IP }}"
 
     - name: Terraform Apply
-      run: terraform apply -var="my_ip=${{ secrets.MY_IP }}"
+      run: terraform apply -var="my_ip=${{ secrets.MY_IP }} --auto-approve"
 
 #   trivy-scan:
 #     name: Trivy Security Scan
