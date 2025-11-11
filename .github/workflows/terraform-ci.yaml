@@ -19,7 +19,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5.0.0
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
@@ -29,15 +29,15 @@ jobs:
     - name: Configure AWS Credentials with OIDC
       uses: aws-actions/configure-aws-credentials@v5.1.0
       with:
-        role-to-assume: arn:aws:iam::448049825151:user/iamphanan13.github.vault-service-iam
-        aws-region: ap-southeast-1
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/iamphanan13.oidc.vault-service
+        aws-region: ${{ secrets.AWS_REGION }}
     - name: Additional steps
       run: |
         aws sts get-caller-identity
 
 
     - name: Terraform Format
-      run: terraform fmt -check -recursive
+      run: terraform fmt -recursive
 
     - name: Terraform Init
       run: terraform init
