@@ -3,7 +3,6 @@
     "Statement": [
       {
         "Effect": "Allow",
-        "Principal": "*",
         "Action": [
           "s3:ListAllMyBuckets",
           "s3:GetObject",
@@ -17,4 +16,5 @@
       }
     ]
   }
+  
   

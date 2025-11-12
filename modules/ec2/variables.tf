@@ -24,6 +24,12 @@ variable "private_sg_id" {
   type        = string
 }
 
+variable "private_key_name" {
+  description = "Name of the private key"
+  type        = string
+}
+
+
 # Public Instance Variables
 
 variable "public_ami_id" {
@@ -46,7 +52,83 @@ variable "public_key_name" {
   type        = string
 }
 
-variable "private_key_name" {
-  description = "Name of the private key"
+
+variable "public_root_block_encrypted" {
+  description = "Whether the root block device should be encrypted for the public instance"
+  type        = bool
+}
+
+variable "public_root_block_volume_size" {
+  description = "Size (in GiB) of the root block device for the public instance"
+  type        = number
+}
+
+variable "public_root_block_volume_type" {
+  description = "Type of the root block device for the public instance"
   type        = string
+}
+
+variable "public_root_block_delete_on_termination" {
+  description = "Whether the root block device is deleted on termination for the public instance"
+  type        = bool
+}
+
+variable "public_ebs_block_ebs_volume_size" {
+  description = "Size (in GiB) of the EBS volume attached to the public instance"
+  type        = number
+}
+
+variable "public_ebs_block_ebs_volume_type" {
+  description = "Type of the EBS volume attached to the public instance"
+  type        = string
+}
+
+variable "public_ebs_block_encrypted" {
+  description = "Whether the EBS volume attached to the public instance is encrypted"
+  type        = bool
+}
+
+variable "public_ebs_block_delete_on_termination" {
+  description = "Whether the EBS volume is deleted on instance termination for the public instance"
+  type        = bool
+}
+
+variable "private_root_block_encrypted" {
+  description = "Whether the root block device should be encrypted for the private instance"
+  type        = bool
+}
+
+variable "private_root_block_volume_size" {
+  description = "Size (in GiB) of the root block device for the private instance"
+  type        = number
+}
+
+variable "private_root_block_volume_type" {
+  description = "Type of the root block device for the private instance"
+  type        = string
+}
+
+variable "private_root_block_delete_on_termination" {
+  description = "Whether the root block device is deleted on termination for the private instance"
+  type        = bool
+}
+
+variable "private_ebs_block_ebs_volume_size" {
+  description = "Size (in GiB) of the EBS volume attached to the private instance"
+  type        = number
+}
+
+variable "private_ebs_block_ebs_volume_type" {
+  description = "Type of the EBS volume attached to the private instance"
+  type        = string
+}
+
+variable "private_ebs_block_encrypted" {
+  description = "Whether the EBS volume attached to the private instance is encrypted"
+  type        = bool
+}
+
+variable "private_ebs_block_delete_on_termination" {
+  description = "Whether the EBS volume is deleted on instance termination for the private instance"
+  type        = bool
 }
