@@ -9,6 +9,13 @@ echo "> Updating apt packages and installing dependencies"
 sudo apt-get update -y 
 sudo apt-get install -y gpg lsb-release wget unzip curl jq openssl
 
+# Install AWS CLI
+echo "> Installing AWS CLI"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+echo "> AWS CLI version: $(aws --version)"
 
 # Install Vault 
 echo "> Installing Vault ${VAULT_VERSION}"
