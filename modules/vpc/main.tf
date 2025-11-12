@@ -124,3 +124,18 @@ resource "aws_route_table_association" "private_rtb_association" {
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private_rtb.id
 }
+
+# S3 Gateway Endpoint
+resource "aws_vpc_endpoint" "s3_endpoint" {
+  vpc_id          = aws_vpc.main.id
+  service_name    = "com.amazonaws.ap-southeast-1.s3"
+  route_table_ids = [aws_route_table.private_rtb.id]
+  tags = {
+    Name        = "${var.vpc_name}-s3-endpoint"
+    Terraform   = "true"
+    Environment = "Production"
+    Description = "S3 Gateway Endpoint for ${var.vpc_name}"
+  }
+
+  policy = file("${path.module}/policies/s3-endpoint-policy.json")
+}
