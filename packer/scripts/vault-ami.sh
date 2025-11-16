@@ -14,14 +14,23 @@ echo "> Installing AWS CLI"
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+rm -rf awscliv2.zip aws
 
-echo "> AWS CLI version: $(aws --version)"
+# Check if AWS CLI is installed
+if ! command -v aws >/dev/null 2>&1; then
+  echo "Error: AWS CLI not found. Exiting."
+  exit 1
+else
+  echo "> AWS CLI version: $(aws --version)"
+fi
+
 
 # Install Vault 
 echo "> Installing Vault ${VAULT_VERSION}"
 curl -fsSL -o vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
 sudo unzip vault.zip -d /usr/local/bin
 sudo chmod 0755 /usr/local/bin/vault
+sudo rm -f vault.zip 
 vault -v 
 
 # Create Vault user and directories
@@ -36,5 +45,9 @@ sudo chown -R vault:vault /etc/vault.d /opt/vault/data /etc/ssl/vault
 # Output Vault version
 
 echo "> Vault version: $(vault version)"
+
+# Export vault.internal to /etc/hosts
+echo "127.0.0.1 vault.internal" | sudo tee -a /etc/hosts
+grep vault.internal /etc/hosts
 
 

@@ -9,7 +9,7 @@ packer {
 
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "golden-vault-ami-{{timestamp}}"
+  ami_name      = "golden-vault-ami-{{timestamp}}-v1.2"
   instance_type = "t3.micro"
   region        = "ap-southeast-1"
 
