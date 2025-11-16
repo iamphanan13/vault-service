@@ -28,7 +28,7 @@ module "ec2" {
   # This Part for Instance in Private Subnet
   private_subnet_id                        = module.vpc.private_subnet_ids[0]
   private_instance_type                    = "t3.micro"
-  private_ami_id                           = "ami-0c625341be5acdd55"
+  private_ami_id                           = "ami-0fe287fd4d8319cdc"
   private_sg_id                            = module.security.private_sg_id
   private_key_name                         = "ec2-lab01"
   private_root_block_encrypted             = true
