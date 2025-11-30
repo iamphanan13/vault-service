@@ -37,7 +37,7 @@ resource "aws_security_group" "private_sg" {
     from_port       = 8200
     to_port         = 8200
     protocol        = "tcp"
-    security_groups = [var.public_sg_id]
+    security_groups = [aws_security_group.public_sg.id]
     # cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -45,7 +45,7 @@ resource "aws_security_group" "private_sg" {
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
-    security_groups = [var.public_sg_id]
+    security_groups = [aws_security_group.public_sg.id]
   }
 
   egress {
@@ -60,5 +60,71 @@ resource "aws_security_group" "private_sg" {
     Terraform   = "true"
     Environment = "Production"
     Description = "Security group for Vault private instance"
+  }
+}
+
+# Security group for RDS
+resource "aws_security_group" "rds_sg" {
+  name        = "rds-sg"
+  description = "Security group for RDS"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.private_sg.id]
+    # cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # ingress {
+  #   from_port       = 22
+  #   to_port         = 22
+  #   protocol        = "tcp"
+  #   security_groups = [aws_security_group.public_sg.id]
+  # }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    security_groups = [aws_security_group.private_sg.id]
+    # cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.vpc_name}-rds-sg"
+    Terraform   = "true"
+    Environment = "Production"
+    Description = "Security group for Vault private instance"
+  }
+}
+
+# KMS VPC Endpoint Security Group
+resource "aws_security_group" "kms_vpc_endpoint_sg" {
+  name        = "kms-vpc-endpoint-sg"
+  description = "Security group for KMS VPC Endpoint"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    security_groups = [aws_security_group.private_sg.id]
+    # cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.vpc_name}-kms-vpc-endpoint-sg"
+    Terraform   = "true"
+    Environment = "Production"
+    Description = "Security group for KMS VPC Endpoint"
   }
 }
