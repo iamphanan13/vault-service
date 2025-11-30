@@ -113,7 +113,7 @@ resource "aws_autoscaling_group" "vault" {
   name                = "vault-asg"
   desired_capacity    = 2
   max_size            = 3
-  min_size            = 1
+  min_size            = 2
   vpc_zone_identifier = [var.private_subnet_id]
 
   launch_template {

@@ -40,7 +40,8 @@
         "kms:Encrypt",
         "kms:Decrypt",
         "kms:GenerateDataKey",
-        "kms:DescribeKey"
+        "kms:DescribeKey",
+        "kms:ListKeys"
       ],
       "Resource": "arn:aws:kms:ap-southeast-1:448049825151:key/9836016b-7949-4bce-92ec-0861131f91eb"
     }
