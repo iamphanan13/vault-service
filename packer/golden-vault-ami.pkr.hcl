@@ -9,7 +9,7 @@ packer {
 
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "golden-vault-ami-{{timestamp}}-v1.2"
+  ami_name      = "golden-vault-ami-{{timestamp}}-v1.4"
   instance_type = "t3.micro"
   region        = "ap-southeast-1"
 
@@ -24,7 +24,7 @@ source_ami_filter {
 }
 
   tags = {
-    Name = "Golden Vault AMI and Installed Self-Signed SSL"
+    Name = "Golden Vault AMI"
   }
   ssh_username = "ubuntu"
 }
@@ -35,11 +35,6 @@ build {
   // Install Vault
   provisioner "shell" {
     script = "scripts/vault-ami.sh"
-  }
-
-  // Generate self-signed certificate
-  provisioner "shell" {
-    script = "scripts/vault-selfsigned-cert.sh"
   }
 
   // Create systemd service

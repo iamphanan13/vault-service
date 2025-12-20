@@ -18,13 +18,13 @@ LimitMEMLOCK=infinity
 CapabilityBoundingSet=CAP_IPC_LOCK
 AmbientCapabilities=CAP_IPC_LOCK
 
+
 [Install]
 WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
 sudo systemctl enable vault
-sudo systemctl start vault
-sudo systemctl status vault
 
-echo "Vault systemd service created and started"
+
+echo "Vault systemd service created"

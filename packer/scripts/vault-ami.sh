@@ -2,6 +2,8 @@
 set -euo pipefail
 
 VAULT_VERSION="1.21.0"
+CERT_DIR="/etc/ssl/vault"
+
 
 
 # Update apt packages and install dependencies
@@ -49,5 +51,9 @@ echo "> Vault version: $(vault version)"
 # Export vault.internal to /etc/hosts
 echo "127.0.0.1 vault.internal" | sudo tee -a /etc/hosts
 grep vault.internal /etc/hosts
+
+# Create certificate directory
+sudo mkdir -p ${CERT_DIR} 
+sudo chown -R vault:vault ${CERT_DIR}
 
 
