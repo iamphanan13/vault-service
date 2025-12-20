@@ -9,6 +9,10 @@ variable "private_subnet_id" {
   type        = string
 }
 
+variable "private_vault_2_subnet_id" {
+  description = "ID of the private subnet"
+  type        = string
+}
 variable "private_ami_id" {
   description = "ID of the private AMI"
   type        = string
@@ -131,4 +135,24 @@ variable "private_ebs_block_encrypted" {
 variable "private_ebs_block_delete_on_termination" {
   description = "Whether the EBS volume is deleted on instance termination for the private instance"
   type        = bool
+}
+
+
+variable "dynamodb_table_arn" {
+  description = "ARN of the DynamoDB table"
+  type        = string
+}
+
+
+variable "vpc_id" {
+  description = "ID of the VPC"
+  type        = string
+}
+
+variable "nlb_sg_id" {
+  type = string
+}
+
+variable "vault_nlb_subnets" {
+  type = list(string)
 }
