@@ -21,6 +21,13 @@ variable "private_subnet_count" {
 
 }
 
+# variable "rds_subnet_count" {
+#   description = "Number of private subnets"
+#   type        = number
+
+# }
+
+
 variable "enable_nat_gateway" {
   description = "Enable NAT Gateway for private subnets"
   type        = bool
@@ -33,3 +40,11 @@ variable "enable_nat_gateway" {
 #   default     = {}
 # }
 
+
+
+
+
+variable "vpc_endpoint_sg_id" {
+  description = "Security Group ID for VPC Endpoint"
+  type        = string
+}

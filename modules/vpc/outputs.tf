@@ -18,6 +18,12 @@ output "private_subnet_ids" {
   value       = aws_subnet.private[*].id
 }
 
+
+# output "db_subnet_group_name" {
+#   description = "Name of the DB subnet group"
+#   value       = aws_db_subnet_group.rds_subnet_group.name
+# }
+
 # output "public_route_table_id" {
 #   description = "ID of the public route table"
 #   value       = aws_route_table.public.id
