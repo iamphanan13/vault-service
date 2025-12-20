@@ -19,3 +19,8 @@ output "rds_sg_id" {
 }
 
 
+output "nlb_sg_id" {
+  description = "ID of the Network Load Balancer security group"
+  value       = aws_security_group.nlb_sg.id
+}
+

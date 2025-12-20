@@ -42,6 +42,21 @@ resource "aws_security_group" "private_sg" {
   }
 
   ingress {
+    from_port       = 8200
+    to_port         = 8200
+    protocol        = "tcp"
+    security_groups = [aws_security_group.nlb_sg.id]
+    # cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8201
+    to_port   = 8201
+    protocol  = "tcp"
+    self      = true
+  }
+
+  ingress {
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
@@ -62,6 +77,35 @@ resource "aws_security_group" "private_sg" {
     Description = "Security group for Vault private instance"
   }
 }
+
+
+resource "aws_security_group" "nlb_sg" {
+  name        = "nlb-sg"
+  description = "Security group for private instance"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port = 8200
+    to_port   = 8200
+    protocol  = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.vpc_name}-nlb-sg"
+    Terraform   = "true"
+    Environment = "Production"
+    Description = "Security group for Vault Network Load Balancer"
+  }
+}
+
 
 # Security group for RDS
 resource "aws_security_group" "rds_sg" {
@@ -128,3 +172,6 @@ resource "aws_security_group" "kms_vpc_endpoint_sg" {
     Description = "Security group for KMS VPC Endpoint"
   }
 }
+
+
+
