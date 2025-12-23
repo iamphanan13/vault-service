@@ -5,8 +5,8 @@ CERT_DIR="/etc/ssl/vault"
 
 
 # Pull S3 Certificate from S3 Bucket to Instance vault-1
-aws s3 cp s3://vault-key-20251112/prod/tls/vault-1.crt ${CERT_DIR}/vault-1.crt
-aws s3 cp s3://vault-key-20251112/prod/tls/vault-1.key ${CERT_DIR}/vault-1.key
+sudo aws s3 cp s3://vault-key-20251112/prod/tls/vault-1.crt ${CERT_DIR}/vault-1.crt
+sudo aws s3 cp s3://vault-key-20251112/prod/tls/vault-1.key ${CERT_DIR}/vault-1.key
 
 # Set permission for vault.key
 sudo chmod 600 ${CERT_DIR}/vault-1.key
