@@ -9,8 +9,16 @@ resource "aws_security_group" "public_sg" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [var.my_public_ip]
+    description = "Allow access to SSH from my IP"
   }
 
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = [var.my_public_ip]
+    description = "Allow access to Grafana from my IP"
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -85,9 +93,9 @@ resource "aws_security_group" "nlb_sg" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port = 8200
-    to_port   = 8200
-    protocol  = "tcp"
+    from_port   = 8200
+    to_port     = 8200
+    protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
 
