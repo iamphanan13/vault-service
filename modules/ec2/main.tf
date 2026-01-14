@@ -9,6 +9,11 @@ resource "aws_instance" "bastion" {
     http_tokens = "required"
   }
 
+  iam_instance_profile = aws_iam_instance_profile.vault_s3_instance_profile.name
+
+
+  user_data_base64 = base64encode(file("${path.module}/scripts/vault-bastion-scripts.sh"))
+
   root_block_device {
     encrypted             = var.public_root_block_encrypted             // bool
     volume_size           = var.public_root_block_volume_size           // number

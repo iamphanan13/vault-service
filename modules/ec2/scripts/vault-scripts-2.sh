@@ -5,19 +5,20 @@ CERT_DIR="/etc/ssl/vault"
 
 
 # Pull S3 Certificate from S3 Bucket to Instance vault-2
-sudo aws s3 cp s3://vault-key-20251112/prod/tls/vault-2.crt ${CERT_DIR}/vault-2.crt
-sudo aws s3 cp s3://vault-key-20251112/prod/tls/vault-2.key ${CERT_DIR}/vault-2.key
+sudo aws s3 cp s3://vault-certificate-2026/servers/vault2/vault2.crt ${CERT_DIR}/vault2.crt
+sudo aws s3 cp s3://vault-certificate-2026/servers/vault2/vault2.key ${CERT_DIR}/vault2.key
+sudo aws s3 cp s3://vault-certificate-2026/servers/vault2/vault2-fullchain.crt ${CERT_DIR}/vault2-fullchain.crt
 
 # Set permission for vault.key
-sudo chmod 600 ${CERT_DIR}/vault-2.key
-# Set permission for vault.crt
-sudo chmod 644 ${CERT_DIR}/vault-2.crt
+sudo chmod 600 ${CERT_DIR}/vault2.key
+# Set permission for vault.crt and vault-fullchain.crt
+sudo chmod 644 ${CERT_DIR}/vault2.crt ${CERT_DIR}/vault2-fullchain.crt
 
-sudo chown -R vault:vault ${CERT_DIR}/vault-2.crt ${CERT_DIR}/vault-2.key
+sudo chown -R vault:vault ${CERT_DIR}/vault2.crt ${CERT_DIR}/vault2.key ${CERT_DIR}/vault2-fullchain.crt
 
 # Copy vault.crt to /usr/local/share/ca-certificates
 ls -la ${CERT_DIR}
-sudo cp ${CERT_DIR}/vault-2.crt /usr/local/share/ca-certificates/vault-2.crt
+sudo cp ${CERT_DIR}/vault2.crt /usr/local/share/ca-certificates/vault2.crt
 
 
 
@@ -39,13 +40,13 @@ seal "awskms" {
 
 listener "tcp" {
   address       = "0.0.0.0:8200"
-  tls_cert_file = "/etc/ssl/vault/vault-2.crt"
-  tls_key_file  = "/etc/ssl/vault/vault-2.key"
+  tls_cert_file = "/etc/ssl/vault/vault2-fullchain.crt"
+  tls_key_file  = "/etc/ssl/vault/vault2.key"
 }
 
 ui = true
 disable_mlock = true
-api_addr = "https://vault.service.internal:8200"
+api_addr = "https://vault.internal.service:8200"
 cluster_addr = "https://10.0.11.10:8201"
 EOF
 
