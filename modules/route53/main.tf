@@ -1,23 +1,24 @@
 resource "aws_route53_zone" "service_internal" {
-  name = "service.internal"
+  name = "internal.service"
 
   vpc {
     vpc_id = var.vpc_id
   }
 
   tags = {
-    Name = "service.internal"
+    Name = "internal.service"
   }
 }
 
 resource "aws_route53_record" "vault" {
   zone_id = aws_route53_zone.service_internal.zone_id
-  name    = "vault.service.internal"
+  name    = "vault.internal.service"
   type    = "A"
 
   alias {
-    name = var.vault_nlb_name
-    zone_id = var.vault_nlb_zone_id
+    name                   = var.vault_nlb_name
+    zone_id                = var.vault_nlb_zone_id
     evaluate_target_health = true
   }
 }
+
