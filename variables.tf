@@ -3,6 +3,11 @@ variable "my_ip" {
   type        = string
 }
 
+variable "key_name" {
+  description = "Key for Instance"
+  type        = string
+}
+
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
