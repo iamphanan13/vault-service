@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "vault_policy" {
     ]
 
     resources = [
-      "arn:aws:s3:::vault-key-20251112",
+      "arn:aws:s3:::vault-certificate-2026",
       "arn:aws:s3:::vault-backend-iamphanan",
     ]
   }
@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "vault_policy" {
     ]
 
     resources = [
-      "arn:aws:s3:::vault-key-20251112/*",
+      "arn:aws:s3:::vault-certificate-2026/*",
       "arn:aws:s3:::vault-backend-iamphanan/*",
     ]
   }
